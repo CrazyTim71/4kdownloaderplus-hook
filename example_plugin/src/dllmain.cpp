@@ -4,6 +4,7 @@
 #pragma comment(linker, "/DLL")
 #include "MinHook.hpp"
 #include "outputdebugstring.hpp"
+#include <string>
 
 #include <shellapi.h>
 #include <stdlib.h>
@@ -25,7 +26,13 @@ namespace Detour {
         INT     nShowCmd
     ) {
         outputDebugString(L"URL_Blocker Plugin Hook: ShellExecuteW(%s, %s)", lpFile, lpParameters);
-        return nullptr;
+        if (lpFile && wcsstr(lpFile, L"http") == lpFile) {
+            outputDebugString(L"URL_Blocker Plugin Hook: Blocked URL: %s", lpFile);
+            return nullptr;
+        } else {
+            outputDebugString(L"URL_Blocker Plugin Hook: Allowed URL: %s", lpFile);
+            return Original::ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd);
+        }
     }
 
     HINSTANCE WINAPI ShellExecuteA(
@@ -37,7 +44,13 @@ namespace Detour {
         INT     nShowCmd
     ) {
         outputDebugString(L"URL_Blocker Plugin Hook: ShellExecuteA(%S, %S)", lpFile, lpParameters);
-        return nullptr;
+        if (lpFile && strstr(lpFile, "http") == lpFile) {
+            outputDebugString(L"URL_Blocker Plugin Hook: Blocked URL: %S", lpFile);
+            return nullptr;
+        } else {
+            outputDebugString(L"URL_Blocker Plugin Hook: Allowed URL: %S", lpFile);
+            return Original::ShellExecuteA(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd);
+        }
     }
 }
 
