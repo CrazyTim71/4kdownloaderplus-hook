@@ -1,3 +1,28 @@
+# 4kdownloader+ Hook
+
+This project is a hook used to modify the behavior of the program 4k Video Downloader Plus.   
+
+## Purpose
+
+I found it very annoying that 4k Video Downloader Plus opened the browser to display the thank you page after each update. Therefore, I used this hook template to block all system calls to `ShellExecuteA` and `ShellExecuteW`. These functions are used to open a link in the default browser.
+
+## How It Works
+
+The hook intercepts calls to `ShellExecuteA` and `ShellExecuteW` and prevents them from executing if the URL starts with "http". This effectively blocks the program from opening the thank you page in the browser, but still allows opeing video files from inside 4k Video Downloader Plus.
+
+## How to use
+
+Inside the 4kdownloaderplus folder, create a new folder named like the .exe file with the ending `.plugin` . For example `4kvideodownloaderplus.exe.plugins`.  
+Place the compiled DLL file inside this folder and use the program as usual.
+
+## Recent Updates
+
+According to the [patch notes](https://www.4kdownload.com/blog/2024/11/19/new-1-10-version-of-4k-video-downloader-plus-is-here/), the developers have recently removed this annoying behavior. However, this hook can still be useful for other purposes or for older versions of the software.
+
+## Disclaimer
+
+**This project is for educational purposes only. I am not responsible for any harm or damage caused by the use of this hook.**
+
 # pseudo-version-dll
 
 Original repo: https://github.com/t-mat/pseudo-version-dll
