@@ -13,7 +13,7 @@ The hook intercepts calls to `ShellExecuteA` and `ShellExecuteW` and prevents th
 ## How to use
 
 Inside the 4kdownloaderplus folder, create a new folder named like the .exe file with the ending `.plugin` . For example `4kvideodownloaderplus.exe.plugins`.  
-Place the compiled DLL file inside this folder and use the program as usual.
+Place the compiled DLL file (``example_plugin.dll``) inside this folder. Then copy the ``version.dll`` file into the 4kdownloaderplus folder and use the program as usual.
 
 ## Recent Updates
 
